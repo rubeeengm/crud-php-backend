@@ -24,7 +24,7 @@ class ProductService {
 
             $result = $stm->fetchAll(PDO::FETCH_CLASS, '\\Models\\Product');
         } catch(PDOException $ex) {
-            
+            var_dump($ex);
         }
         
         return $result;
@@ -43,7 +43,7 @@ class ProductService {
                  $result = $data;
             }
         } catch(PDOException $ex) {
-
+            var_dump($ex);
         }
 
         return $result;
@@ -63,6 +63,39 @@ class ProductService {
                 , 'created' => $now
                 , 'updated' => $now
             ]);
+        } catch(PDOException $ex) {
+            var_dump($ex);
+        }
+    }
+
+    public function update(Product $model) : void {
+        try {
+            $stm = $this->_db->prepare('
+                update products
+                set name = :name
+                , price = :price
+                , updated_at = :updated
+                where id = :id
+            ');
+
+            $stm->execute([
+                'id' => $model->id
+                , 'name' => $model->name
+                , 'price' => $model->price
+                , 'updated' => date('Y-m-d H:i:s')
+            ]);
+        } catch(PdoException $ex) {
+            var_dump($ex);
+        }
+    }
+
+    public function delete(int $id) : void {
+        try {
+            $stm = $this->_db->prepare(
+                'delete from products where id = :id'
+            );
+
+            $stm->execute(['id' => $id]);
         } catch(PDOException $ex) {
             var_dump($ex);
         }

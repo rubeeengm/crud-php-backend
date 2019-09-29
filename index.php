@@ -9,9 +9,10 @@ use Services\ProductService;
 $productService = new ProductService();
 
 $model = new Product;
-$model->name = 'Guitarra Suhr';
-$model->price = 3000;
+$model->id = 13;
+$model->name = 'Guitarra Suhrx';
+$model->price = 30001;
 
-$result = $productService->create($model);
+$result = $productService->delete(13);
 
 var_dump($result);
