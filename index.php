@@ -3,6 +3,9 @@
 require_once 'vendor/autoload.php';
 require_once 'config.php';
 
-use Database\DbProvider;
+use Services\ProductService;
 
-var_dump(DbProvider::get());
+$productService = new ProductService();
+$result = $productService->getAll();
+
+var_dump($result);

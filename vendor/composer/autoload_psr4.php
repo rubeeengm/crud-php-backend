@@ -6,5 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Services\\' => array($baseDir . '/Services'),
+    'Models\\' => array($baseDir . '/Models'),
     'Database\\' => array($baseDir . '/Database'),
 );

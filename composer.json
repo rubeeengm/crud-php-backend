@@ -3,6 +3,8 @@
     , "autoload": {
         "psr-4": {
             "Database\\": "Database/"
+            , "Models\\": "Models/"
+            , "Services\\": "Services/"
         }
     }
 }
