@@ -1,0 +1,8 @@
+{
+    "name": "backend/crud-php-backend"
+    , "autoload": {
+        "psr-4": {
+            "Database\\": "Database/"
+        }
+    }
+}
