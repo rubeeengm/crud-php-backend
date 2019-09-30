@@ -1,0 +1,78 @@
+<?php
+
+namespace Services;
+
+use PDO;
+use PDOException;
+use Models\Order;
+use Models\OrderDetail;
+use Database\DbProvider;
+
+class OrderService {
+    private $_db;
+
+    public function __construct() {
+        $this->_db = DbProvider::get();
+    }
+
+    public function create(Order $model): void {
+        try {
+            $this->prepareOrderCreation($model);
+            $this->orderCreate($model);
+            $this->orderDetailCreate($model);
+        } catch(PDOException $ex) {
+            var_dump($ex);
+        }
+    }
+
+    private function prepareOrderCreation(Order &$model) : void {
+        $now = date('Y-m-d H:i:s');
+
+        $model->created_at = $now;
+        $model->updated_at = $now;
+
+        foreach ($model->detail as $item) {
+            $item->total = $item->price * $item->quantity;
+            $item->created_at = $now;
+            $item->updated_at = $now;
+
+            $model->total += $item->total;
+        }
+    }
+
+    private function orderCreate(Order &$model) : void {
+        $stm = $this->_db->prepare('
+            insert into orders(user_id, total, creater_id, created_at, updated_at)
+            values(:user_id, :total, :creater_id, :created, :updated)
+        ');
+
+        $stm->execute([
+            'user_id' => $model->user_id
+            , 'total' => $model->total
+            , 'creater_id' => $model->creater_id
+            , 'created' => $model->created_at
+            , 'updated' => $model->updated_at
+        ]);
+
+        $model->id = $this->_db->lastInsertId();
+    }
+
+    private function orderDetailCreate(Order $model) : void {
+        foreach ($model->detail as $item) {
+            $stm = $this->_db->prepare('
+                insert into order_detail(order_id, product_id, quantity, price, total, created_at, updated_at)
+                values(:order_id, :product_id, :quantity, :price, :total, :created_at, :updated_at)
+            ');
+
+            $stm->execute([
+                'order_id' => $model->id
+                , 'product_id' => $item->product_id
+                , 'quantity' => $item->quantity
+                , 'price' => $item->price
+                , 'total' => $item->total
+                , 'created_at' => $item->created_at
+                , 'updated_at' => $item->updated_at
+            ]);
+        }
+    }
+}

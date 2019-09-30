@@ -13,8 +13,8 @@
 
 
 -- Volcando estructura de base de datos para kodoti
-CREATE DATABASE IF NOT EXISTS `kodoti` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */;
-USE `kodoti`;
+CREATE DATABASE IF NOT EXISTS `music_store` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */;
+USE `music_store`;
 
 -- Volcando estructura para tabla kodoti.orders
 CREATE TABLE IF NOT EXISTS `orders` (

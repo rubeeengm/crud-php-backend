@@ -26,7 +26,7 @@ class ProductService {
         } catch(PDOException $ex) {
             var_dump($ex);
         }
-        
+
         return $result;
     }
 
@@ -35,7 +35,7 @@ class ProductService {
 
         try {
             $stm = $this->_db->prepare('select * from products where id = :id');
-            
+
             $stm->execute(['id' => $id]);
             $data = $stm->fetchObject('\\Models\\Product');
 
