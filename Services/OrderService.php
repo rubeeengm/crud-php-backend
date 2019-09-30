@@ -17,11 +17,15 @@ class OrderService {
 
     public function create(Order $model): void {
         try {
+            $this->_db->beginTransaction();
+
             $this->prepareOrderCreation($model);
             $this->orderCreate($model);
             $this->orderDetailCreate($model);
+
+            $this->_db->commit();
         } catch(PDOException $ex) {
-            var_dump($ex);
+            $this->_db->rollback();
         }
     }
 

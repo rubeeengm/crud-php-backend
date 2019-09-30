@@ -1,22 +1,7 @@
--- --------------------------------------------------------
--- Host:                         127.0.0.1
--- Versión del servidor:         5.7.26 - MySQL Community Server (GPL)
--- SO del servidor:              Win64
--- HeidiSQL Versión:             9.4.0.5125
--- --------------------------------------------------------
+CREATE DATABASE IF NOT EXISTS `music_store`;
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
-
--- Volcando estructura de base de datos para kodoti
-CREATE DATABASE IF NOT EXISTS `music_store` /*!40100 DEFAULT CHARACTER SET utf8 COLLATE utf8_spanish_ci */;
 USE `music_store`;
 
--- Volcando estructura para tabla kodoti.orders
 CREATE TABLE IF NOT EXISTS `orders` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -31,14 +16,10 @@ CREATE TABLE IF NOT EXISTS `orders` (
   CONSTRAINT `FK_orders_users_2` FOREIGN KEY (`creater_id`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Volcando datos para la tabla kodoti.orders: ~2 rows (aproximadamente)
-/*!40000 ALTER TABLE `orders` DISABLE KEYS */;
 INSERT INTO `orders` (`id`, `user_id`, `total`, `creater_id`, `created_at`, `updated_at`) VALUES
 	(1, 2, 6500.00, 1, '2019-08-30 01:58:41', '2019-08-30 01:58:43'),
 	(44, 1, 5021.00, 2, '2019-09-17 02:04:47', '2019-09-17 02:04:47');
-/*!40000 ALTER TABLE `orders` ENABLE KEYS */;
 
--- Volcando estructura para tabla kodoti.order_detail
 CREATE TABLE IF NOT EXISTS `order_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `order_id` int(11) NOT NULL,
@@ -55,15 +36,11 @@ CREATE TABLE IF NOT EXISTS `order_detail` (
   CONSTRAINT `FK_order_detail_products` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Volcando datos para la tabla kodoti.order_detail: ~0 rows (aproximadamente)
-/*!40000 ALTER TABLE `order_detail` DISABLE KEYS */;
 INSERT INTO `order_detail` (`id`, `order_id`, `product_id`, `quantity`, `price`, `total`, `created_at`, `updated_at`) VALUES
 	(1, 1, 1, 2, 2500.00, 5000.00, '2019-08-30 02:00:42', '2019-08-30 02:00:42'),
 	(45, 44, 1, 2, 2500.00, 5000.00, '2019-09-17 02:04:47', '2019-09-17 02:04:47'),
 	(46, 44, 4, 3, 7.00, 21.00, '2019-09-17 02:04:47', '2019-09-17 02:04:47');
-/*!40000 ALTER TABLE `order_detail` ENABLE KEYS */;
 
--- Volcando estructura para tabla kodoti.products
 CREATE TABLE IF NOT EXISTS `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
@@ -73,8 +50,6 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Volcando datos para la tabla kodoti.products: ~6 rows (aproximadamente)
-/*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`id`, `name`, `price`, `created_at`, `updated_at`) VALUES
 	(1, 'Guitarra eléctrica Fender', 2500.00, '2019-08-30 01:58:41', '2019-08-30 01:58:41'),
 	(2, 'Amplificador Laney', 1500.00, '2019-08-30 01:58:41', '2019-08-30 01:58:41'),
@@ -82,9 +57,7 @@ INSERT INTO `products` (`id`, `name`, `price`, `created_at`, `updated_at`) VALUE
 	(4, 'Cuerdas Addario XL', 7.00, '2019-08-30 01:58:41', '2019-08-30 01:58:41'),
 	(5, 'Funda para guitarra x', 16.00, '2019-08-30 01:58:41', '2019-09-17 00:29:52'),
 	(6, 'Case para guitarra eléctrica', 100.00, '2019-08-30 01:58:41', '2019-08-30 01:58:41');
-/*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
--- Volcando estructura para tabla kodoti.users
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `first_name` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
@@ -96,8 +69,6 @@ CREATE TABLE IF NOT EXISTS `users` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
--- Volcando datos para la tabla kodoti.users: ~19 rows (aproximadamente)
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `user_name`, `password`, `created_at`, `updated_at`) VALUES
 	(1, 'Eduardo', 'Rodríguez', 'erodriguez', '7c4a8d09ca3762af61e59520943dc26494f8941b', '2019-08-29 15:57:30', '2019-08-29 15:57:30'),
 	(2, 'Sandro', 'Rodriguez', 'srodriguez', '7c4a8d09ca3762af61e59520943dc26494f8941b', '2019-08-29 00:00:00', '2019-08-29 00:00:00'),
@@ -118,8 +89,3 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `user_name`, `password`, `
 	(18, 'Alejandro', 'Perez', 'aperez', '7c4a8d09ca3762af61e59520943dc26494f8941b', '2019-08-30 01:48:22', '2019-08-30 01:48:22'),
 	(20, 'Juan', 'Perez', 'jperez', '7c4a8d09ca3762af61e59520943dc26494f8941b', '2019-08-30 02:50:31', '2019-08-30 02:50:31'),
 	(37, 'Rocío', 'Tsumi', 'rtsumi', '7c4a8d09ca3762af61e59520943dc26494f8941b', '2019-08-30 05:06:07', '2019-08-30 05:06:07');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-
-/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
-/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
