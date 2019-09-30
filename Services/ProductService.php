@@ -30,7 +30,7 @@ class ProductService {
         return $result;
     }
 
-    public function get(int $id) : Product {
+    public function get(int $id) : ?Product {
         $result = null;
 
         try {
